@@ -102,9 +102,33 @@ def tobs():
 def start_end(start=None , end=None):
     session = Session(engine)
     if not end:
-        results4 = session.query()
+        results4 = session.query(func.min(Measurement.tobs), 
+                                 func.max(Measurement.tobs),
+                                 func.avg(Measurement.tobs)).\
+                                 filter(Measurement.date >= start).all()
+        mma_temps = []
+        for tmin, tmax, tavg in results4: 
+            temps_dict = {}
+            temps_dict['Min'] = tmin
+            temps_dict['Max'] = tmax
+            temps_dict['Avg'] = tavg
+            mma_temps.append(temps_dict)
+        
+        return jsonify(mma_temps)
     
-    results4 = session.query()
+    results4 = session.query(func.min(Measurement.tobs), 
+                                 func.max(Measurement.tobs),
+                                 func.avg(Measurement.tobs)).\
+                                 filter(Measurement.date <= end & Measurement.date >= start).all()
+        mma_temps = []
+        for tmin, tmax, tavg in results4: 
+            temps_dict = {}
+            temps_dict['Min'] = tmin
+            temps_dict['Max'] = tmax
+            temps_dict['Avg'] = tavg
+            mma_temps.append(temps_dict)
+        
+        return jsonify(mma_temps)
 
 
 if __name__ == '__main__':
