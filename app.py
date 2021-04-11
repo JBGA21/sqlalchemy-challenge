@@ -83,7 +83,7 @@ def tobs():
     session = Session(engine)
     results3 = session.query(Measurement.date, Measurement.tobs).\
                         filter(Measurement.station == 'USC00519281').\
-                        filter(Measurement.date > '2016-08-22').all()
+                        filter(Measurement.date > '2016-08-17').all()
     session.close()
     
     
