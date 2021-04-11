@@ -120,15 +120,15 @@ def start_end(start=None , end=None):
                                  func.max(Measurement.tobs),
                                  func.avg(Measurement.tobs)).\
                                  filter(Measurement.date <= end & Measurement.date >= start).all()
-        mma_temps = []
-        for tmin, tmax, tavg in results4: 
-            temps_dict = {}
-            temps_dict['Min'] = tmin
-            temps_dict['Max'] = tmax
-            temps_dict['Avg'] = tavg
-            mma_temps.append(temps_dict)
+    mma_temps = []
+    for tmin, tmax, tavg in results4: 
+        temps_dict = {}
+        temps_dict['Min'] = tmin
+        temps_dict['Max'] = tmax
+        temps_dict['Avg'] = tavg
+        mma_temps.append(temps_dict)
         
-        return jsonify(mma_temps)
+    return jsonify(mma_temps)
 
 
 if __name__ == '__main__':
