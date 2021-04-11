@@ -119,7 +119,8 @@ def start_end(start=None , end=None):
     results4 = session.query(func.min(Measurement.tobs), 
                                  func.max(Measurement.tobs),
                                  func.avg(Measurement.tobs)).\
-                                 filter(Measurement.date <= end & Measurement.date >= start).all()
+                                 filter(Measurement.date >= start).\
+                                 filter(Measurement.date <= end).all()
     mma_temps = []
     for tmin, tmax, tavg in results4: 
         temps_dict = {}
